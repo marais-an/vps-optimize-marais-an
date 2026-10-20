@@ -1,0 +1,54 @@
+INFORME AL CTO — VPS DESPUÉS DE LA OPTIMIZACIÓN
+Fecha: 20/10/2026
+Servidor: bc-vps-460
+Sistema operativo: Ubuntu 22.04.5 LTS (Jammy Jellyfish)
+
+ESTADO
+VPS preparado para los próximos despliegues de la compañía.
+Acceso por SSH y terminal remota de VS Code comprobados.
+La capacidad necesaria deberá valorarse según las aplicaciones
+que se vayan a desplegar.
+
+RECURSOS DESPUÉS DE OPTIMIZAR
+
+$ free -h
+               total        used        free      shared  buff/cache   available
+Mem:           957Mi       586Mi        80Mi       4.0Mi       290Mi       222Mi
+Swap:             0B          0B          0B
+
+$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs            96M  1.1M   95M   2% /run
+/dev/vda1        25G  2.6G   22G  11% /
+tmpfs           479M     0  479M   0% /dev/shm
+tmpfs           5.0M     0  5.0M   0% /run/lock
+/dev/vda15      105M  6.1M   99M   6% /boot/efi
+tmpfs            96M  4.0K   96M   1% /run/user/0
+
+$ hostname
+bc-vps-460
+
+CAMBIOS REALIZADOS
+- snapd.service y snapd.socket: inactivos y deshabilitados.
+- multipathd.service y multipathd.socket: inactivos y deshabilitados.
+- LXD: sin contenedores. Servicio y socket detenidos;
+  socket deshabilitado. El servicio figura como static.
+- apport.service: inactivo y deshabilitado.
+- Los servicios de impresión, Avahi, ModemManager, Bluetooth
+  y popularity-contest no aparecieron en la consulta de servicios
+  instalados.
+
+SERVICIOS CONSERVADOS
+Se mantuvieron las actualizaciones automáticas de seguridad,
+SSH y los servicios de red y registros.
+Verificación final de ssh.service: active.
+
+COMPARACIÓN Y OBSERVACIONES
+RAM disponible antes: 229 MiB.
+RAM disponible después: 222 MiB.
+No se observó una mejora neta de RAM disponible entre estas
+mediciones. El consumo varía mientras VS Code y otros procesos
+están funcionando; no se atribuye un ahorro total a la limpieza.
+
+No se añadió swap ni se reinició el VPS.
+La conexión SSH siguió funcionando después de los cambios.
